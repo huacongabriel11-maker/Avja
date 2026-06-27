@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+                <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https: wss:; connect-src * wss:;">
     
     <title>AVJ Community | Tienda Automatizada</title>
@@ -11,10 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CIBERSEGURIDAD CAPA 2: Anti-Clickjacking (Oculta la web si está en un iframe no autorizado) */
         body { display: none; }
-
-        /* === VARIABLES DE COLOR Y ESTILOS === */
         :root {
             --card-bg: rgba(20, 20, 25, 0.6);
             --card-border: rgba(139, 92, 246, 0.2);
@@ -29,10 +25,8 @@
         html { scroll-behavior: smooth; }
         body.visible { display: block; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
-        /* Fondo 3D */
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
 
-        /* === NAVEGACIÓN Y HEADER === */
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .logo-container { display: flex; align-items: center; gap: 15px; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: white; text-shadow: 0 0 10px var(--accent-glow); cursor: pointer; }
         .logo-container img { height: 60px; width: auto; border-radius: 12px; object-fit: contain; box-shadow: 0 0 15px var(--accent-purple); border: 2px solid var(--accent-purple); background-color: white; }
@@ -47,7 +41,6 @@
         @keyframes bounceCart { 0% { transform: scale(1); } 40% { transform: scale(1.4) translateY(-3px); } 70% { transform: scale(0.9); } 100% { transform: scale(1); } }
         .bounce-anim { animation: bounceCart 0.4s ease-in-out; }
 
-        /* === SECCIONES PRINCIPALES === */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
         .hero h1 { font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -1px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
         .hero h1 span { color: var(--accent-purple); text-shadow: 0 0 25px var(--accent-glow); }
@@ -57,7 +50,6 @@
         .section-title { text-align: center; font-size: 3rem; margin-bottom: 60px; text-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; perspective: 1000px; }
         
-        /* === TARJETAS 3D DINÁMICAS === */
         .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transform-style: preserve-3d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;}
         .card-content { transform: translateZ(60px); }
         .card h3 { font-size: 1.8rem; margin-bottom: 5px; transform: translateZ(30px); }
@@ -70,12 +62,10 @@
         .btn:hover:not(:disabled) { background: var(--accent-purple); box-shadow: 0 0 25px var(--accent-glow); transform: translateZ(60px) scale(1.05); }
         .btn:disabled { background: rgba(255,255,255,0.05); border-color: gray; color: gray; cursor: not-allowed; }
 
-        /* === ELEMENTOS FLOTANTES Y UI === */
         .btn-floating-wa { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 990; animation: pulse-wa 2s infinite; transition: transform 0.3s; }
         .btn-floating-wa:hover { transform: scale(1.15) rotate(-10deg); }
         @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-        /* Sidebar Carrito */
         .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(20px); border-left: 1px solid var(--accent-purple); z-index: 1000; padding: 30px; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
         .cart-sidebar.active { right: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
@@ -92,22 +82,29 @@
         .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; transition: color 0.2s; }
         .close-modal:hover { color: var(--accent-purple); }
 
-        /* Modal Simulador de Compra */
+        /* === NUEVA PASARELA DE PAGOS === */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .checkout-modal { background: #121214; border: 1px solid var(--accent-purple); border-radius: 15px; width: 90%; max-width: 500px; padding: 30px; box-shadow: 0 0 40px rgba(139, 92, 246, 0.3); text-align: center; }
-        .checkout-modal h2 { margin-bottom: 15px; color: white; }
+        .checkout-modal { background: #121214; border: 1px solid var(--accent-purple); border-radius: 15px; width: 90%; max-width: 450px; padding: 30px; box-shadow: 0 0 40px rgba(139, 92, 246, 0.3); text-align: center; position: relative; }
+        
+        .payment-methods { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        .payment-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 15px; border-radius: 10px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 15px; transition: all 0.3s; }
+        .payment-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-purple); transform: translateY(-2px); }
+        .payment-btn.paypal:hover { border-color: #00457C; box-shadow: 0 0 15px rgba(0, 69, 124, 0.5); }
+        .payment-btn.ltc:hover { border-color: #345D9D; box-shadow: 0 0 15px rgba(52, 93, 157, 0.5); }
+        
+        .copy-box { background: #050505; border: 1px dashed var(--accent-purple); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin: 20px 0; word-break: break-all; text-align: left; }
+        .copy-box span { color: #a1a1aa; font-family: monospace; font-size: 0.95rem; }
+        .btn-copy { background: var(--accent-purple); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .btn-copy:hover { background: #7c3aed; }
+
         .loader { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent-purple); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .delivery-box { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px dashed var(--accent-purple); text-align: left; margin: 20px 0; font-family: monospace; color: #a1a1aa; }
-        .delivery-box span { color: white; font-weight: bold; }
 
-        /* Toast Notificaciones */
         #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .toast { background: rgba(139, 92, 246, 0.95); backdrop-filter: blur(5px); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.95rem; transform: translateX(120%); opacity: 0; transition: all 0.4s; }
         .toast.show { transform: translateX(0); opacity: 1; }
 
-        /* === FOOTER === */
         footer { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px); border-top: 1px solid var(--card-border); padding: 40px 20px 20px; text-align: center; margin-top: 50px; }
         .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
         .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 1.5rem; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 50%; transition: all 0.3s; }
@@ -115,7 +112,6 @@
         .footer-text { color: var(--text-muted); font-size: 0.9rem; }
         .footer-text span { color: var(--accent-purple); font-weight: bold; }
 
-        /* === RESPONSIVE === */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
             .cart-sidebar { width: 100%; right: -100%; border-left: none; }
@@ -132,16 +128,12 @@
 <body>
     
     <script>
-        if (self === top) {
-            document.body.classList.add('visible');
-        } else {
-            top.location = self.location;
-        }
+        if (self === top) { document.body.classList.add('visible'); } else { top.location = self.location; }
     </script>
 
     <canvas id="bg-canvas"></canvas>
 
-    <a href="https://wa.me/593986514739?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20sus%20servicios" class="btn-floating-wa" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    <a href="https://wa.me/593986514739?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20sus%20servicios" class="btn-floating-wa" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -154,7 +146,7 @@
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Catálogo</a>
             <a href="#contacto">Contacto</a>
-            <button onclick="toggleCart()" aria-label="Abrir carrito">
+            <button onclick="toggleCart()">
                 <i class="fa-solid fa-cart-shopping"></i> 
                 <span class="txt">Carrito</span> 
                 <span class="cart-badge" id="cart-count">0</span>
@@ -165,7 +157,7 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Tu Pedido</h2>
-            <button class="close-modal" onclick="toggleCart()" aria-label="Cerrar carrito">&times;</button>
+            <button class="close-modal" onclick="toggleCart()">&times;</button>
         </div>
         <div class="cart-items" id="cart-items-container">
             <p style="color: gray; text-align: center; margin-top: 50px;">El carrito está vacío</p>
@@ -175,27 +167,63 @@
                 <span>Total:</span>
                 <span id="cart-total-price">$0.00</span>
             </div>
-            <button class="btn-checkout" onclick="procesarPagoAutomizado()">
-                <i class="fa-solid fa-bolt"></i> Finalizar Compra
+            <button class="btn-checkout" onclick="abrirPasarela()">
+                <i class="fa-solid fa-bolt"></i> Comprar
             </button>
         </div>
     </div>
 
+    <!-- === NUEVA PASARELA DE PAGOS === -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="checkout-modal">
-            <div id="step-loading">
-                <h2>Verificando Pago Seguro...</h2>
-                <p style="color: #a1a1aa; font-size: 0.9rem;">Conectando con la pasarela y validando seguridad de la transacción.</p>
+            <button class="close-modal" style="position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #a1a1aa;" onclick="cerrarModal()">&times;</button>
+            
+            <!-- PASO 1: Elegir Método -->
+            <div id="step-methods">
+                <h2>Total a pagar: <span id="modal-total-price" style="color: var(--accent-purple);"></span></h2>
+                <p style="color: #a1a1aa; font-size: 0.95rem; margin-top: 5px;">Selecciona tu método de pago preferido</p>
+                
+                <div class="payment-methods">
+                    <button class="payment-btn paypal" onclick="seleccionarMetodo('paypal')">
+                        <i class="fa-brands fa-paypal fa-2x" style="color: #00457C;"></i> Pagar con PayPal
+                    </button>
+                    <button class="payment-btn ltc" onclick="seleccionarMetodo('ltc')">
+                        <i class="fa-brands fa-litecoin-sign fa-2x" style="color: #345D9D;"></i> Pagar con Litecoin (LTC)
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASO 2: Instrucciones de Pago -->
+            <div id="step-pay" style="display: none;">
+                <h2>Completa tu pago</h2>
+                <p style="color: #a1a1aa; font-size: 0.9rem;">Envía el monto exacto a la siguiente dirección:</p>
+                
+                <div class="copy-box">
+                    <span id="payment-address"></span>
+                    <button class="btn-copy" onclick="copiarDireccion()"><i class="fa-solid fa-copy"></i> Copiar</button>
+                </div>
+
+                <button class="btn-checkout" style="margin-top: 20px;" onclick="verificarPago()">
+                    Ya pagué, verificar transacción
+                </button>
+                <button style="background: none; border: none; color: #a1a1aa; margin-top: 15px; cursor: pointer; text-decoration: underline;" onclick="volverAMetodos()">Volver atrás</button>
+            </div>
+
+            <!-- PASO 3: Verificación Simulada -->
+            <div id="step-verifying" style="display: none;">
+                <h2>Buscando Transacción...</h2>
+                <p id="verify-text" style="color: #a1a1aa; font-size: 0.9rem;">Conectando con Blockchair / PayPal Node...</p>
                 <div class="loader"></div>
             </div>
             
+            <!-- PASO 4: Éxito y WhatsApp -->
             <div id="step-success" style="display: none;">
                 <i class="fa-solid fa-circle-check fa-4x" style="color: #25D366; margin-bottom: 15px;"></i>
-                <h2>¡Pago Exitoso!</h2>
-                <p>El stock ha sido descontado. Aquí están tus credenciales generadas automáticamente:</p>
-                <div class="delivery-box" id="delivery-content">
-                    </div>
-                <button class="btn" style="background: #25D366; border-color: #25D366;" onclick="cerrarModal()">Finalizar</button>
+                <h2>Pago Detectado</h2>
+                <p style="color: #a1a1aa; margin-bottom: 20px;">Tu pago ha sido pre-aprobado en la red. Para liberar tus credenciales y aplicar la garantía, envía el comprobante a nuestro sistema.</p>
+                <button class="btn" style="background: #25D366; border-color: #25D366; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="reclamarCuentaWA()">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Reclamar Cuentas
+                </button>
             </div>
         </div>
     </div>
@@ -216,9 +244,9 @@
 
     <footer id="contacto">
         <div class="footer-links">
-            <a href="https://wa.me/593986514739" target="_blank" rel="noopener noreferrer" title="WhatsApp Oficial"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="https://chat.whatsapp.com/BFJ3tOe3e2i5Pzqizn2ieJ?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" title="Únete a nuestra Comunidad"><i class="fa-solid fa-users"></i></a>
-            <a href="mailto:soporte@avjcommunity.com" rel="noopener noreferrer" title="Envíanos un Correo"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/593986514739" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://chat.whatsapp.com/BFJ3tOe3e2i5Pzqizn2ieJ?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-users"></i></a>
+            <a href="mailto:soporte@avjcommunity.com" rel="noopener noreferrer"><i class="fa-solid fa-envelope"></i></a>
         </div>
         <p class="footer-text">© 2026 <span>AVJ Community</span>. Todos los derechos reservados.</p>
     </footer>
@@ -228,18 +256,14 @@
     <script src="https://ltcminer.com/referral-ad.js?v=0.1.88" async defer></script>
 
     <script>
-        // TRUCO VERCEL: Obliga a limpiar memoria vieja para cargar los 11 productos
         localStorage.removeItem('avj_catalogo');
 
-        // CIBERSEGURIDAD CAPA 4: Catálogo inmutable de verificación (Anti-Price Tampering)
-        // El sistema cruza información con este diccionario antes de procesar el carrito.
         const SECURE_CATALOG = {
             'Netflix Premium': 4.50, 'Prime Video': 5.50, 'Disney+': 3.50, 'HBO Max': 3.50, 'Crunchyroll': 4.50,
             'Paramount': 4.00, 'Spotify Premium': 4.00, 'YouTube Premium': 4.50, 'ChatGPT Plus': 7.00,
             'Capcut Pro Anual': 4.35, 'Gemini Plus Anual': 10.00
         };
 
-        // INVENTARIO BASE 
         const CATALOGO_BASE = [
             { id: 'prod_nx', nombre: 'Netflix Premium', precio: 4.50, stock: 15, features: ['Ultra HD 4K', 'Pantalla privada'] },
             { id: 'prod_pv', nombre: 'Prime Video', precio: 5.50, stock: 10, features: ['Catálogo Amazon', 'Películas 4K'] },
@@ -256,15 +280,13 @@
 
         let catalogo = [];
         let carrito = [];
+        let metodoPagoElegido = '';
+        let direccionPagoActual = '';
 
         function inicializarTienda() {
             const dbGuardada = localStorage.getItem('avj_catalogo');
-            if (dbGuardada) {
-                catalogo = JSON.parse(dbGuardada);
-            } else {
-                catalogo = CATALOGO_BASE;
-                guardarCatalogo();
-            }
+            if (dbGuardada) catalogo = JSON.parse(dbGuardada);
+            else { catalogo = CATALOGO_BASE; guardarCatalogo(); }
 
             const carritoGuardado = localStorage.getItem('avj_carrito');
             if (carritoGuardado) carrito = JSON.parse(carritoGuardado);
@@ -276,17 +298,14 @@
         function guardarCatalogo() { localStorage.setItem('avj_catalogo', JSON.stringify(catalogo)); }
         function guardarCarrito() { localStorage.setItem('avj_carrito', JSON.stringify(carrito)); }
 
-        // Renderizado Dinámico
         function renderizarCatalogo() {
             const grid = document.getElementById('catalogo-grid');
             grid.innerHTML = '';
-
             catalogo.forEach(prod => {
                 const agotado = prod.stock <= 0;
                 let featuresHTML = '';
                 prod.features.forEach(f => featuresHTML += `<li>✓ ${f}</li>`);
-
-                const cardHTML = `
+                grid.innerHTML += `
                     <div class="card" data-tilt data-tilt-max="10" data-tilt-glare="true" data-tilt-max-glare="0.2">
                         <div class="card-content">
                             <h3>${prod.nombre}</h3>
@@ -301,76 +320,53 @@
                         </div>
                     </div>
                 `;
-                grid.innerHTML += cardHTML;
             });
-
-            if (typeof VanillaTilt !== 'undefined') {
-                VanillaTilt.init(document.querySelectorAll(".card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
-            }
+            if (typeof VanillaTilt !== 'undefined') VanillaTilt.init(document.querySelectorAll(".card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
         }
 
         function agregarAlCarrito(idProducto) {
             const producto = catalogo.find(p => p.id === idProducto);
-            
-            // CIBERSEGURIDAD: Validación estricta cruzada
-            if (!SECURE_CATALOG[producto.nombre] || SECURE_CATALOG[producto.nombre] !== producto.precio) {
-                console.error("ALERTA SEGURIDAD: Manipulación de DOM detectada. Bloqueando acción."); 
-                return; 
-            }
+            if (!SECURE_CATALOG[producto.nombre] || SECURE_CATALOG[producto.nombre] !== producto.precio) return; 
 
             const cantidadEnCarrito = carrito.filter(item => item.id === idProducto).length;
-            if (cantidadEnCarrito >= producto.stock) {
-                alert(`¡Lo sentimos! Solo quedan ${producto.stock} cuenta(s) en stock.`);
-                return;
-            }
+            if (cantidadEnCarrito >= producto.stock) { alert(`Solo quedan ${producto.stock} cuenta(s) en stock.`); return; }
 
-            // Sanitización
             const cleanName = producto.nombre.replace(/[<>]/g, ""); 
             const safeId = Date.now() + Math.random().toString(36).substr(2, 9);
-            
             carrito.push({ id_unico: safeId, id: producto.id, nombre: cleanName, precio: producto.precio });
-            guardarCarrito();
-            actualizarUI_Carrito();
+            guardarCarrito(); actualizarUI_Carrito();
             
             const badge = document.getElementById('cart-count');
             badge.classList.remove('bounce-anim'); void badge.offsetWidth; badge.classList.add('bounce-anim');
             mostrarToast(cleanName);
         }
 
-        // CIBERSEGURIDAD CAPA 5: Anti-XSS (Usar textContent para renderizar)
         function mostrarToast(productName) {
             const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'toast show';
+            const toast = document.createElement('div'); toast.className = 'toast show';
             toast.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span></span> en el carrito`;
-            toast.querySelector('span').textContent = productName; // Seguro
+            toast.querySelector('span').textContent = productName; 
             container.appendChild(toast);
-            
             setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3000);
         }
 
         function removerDelCarrito(id_unico) {
             carrito = carrito.filter(item => item.id_unico !== id_unico); 
-            guardarCarrito();
-            actualizarUI_Carrito();
+            guardarCarrito(); actualizarUI_Carrito();
         }
 
         function actualizarUI_Carrito() {
             const container = document.getElementById('cart-items-container');
             const count = document.getElementById('cart-count');
             const totalPrice = document.getElementById('cart-total-price');
-            
             count.textContent = carrito.length;
             
             if (carrito.length === 0) {
                 container.innerHTML = '<p style="color: gray; text-align: center; margin-top: 50px;">El carrito está vacío</p>';
-                totalPrice.textContent = '$0.00'; 
-                return;
+                totalPrice.textContent = '$0.00'; return;
             }
 
-            container.innerHTML = ''; 
-            let total = 0;
-            
+            container.innerHTML = ''; let total = 0;
             carrito.forEach(item => {
                 total += item.precio;
                 const cartItem = document.createElement('div');
@@ -379,180 +375,164 @@
                     <div class="item-info"><h4></h4><p style="color: #a1a1aa;">$${item.precio.toFixed(2)}</p></div>
                     <button class="remove-btn" aria-label="Eliminar"><i class="fa-solid fa-trash"></i></button>
                 `;
-                cartItem.querySelector('h4').textContent = item.nombre; // Inserción Anti-XSS
+                cartItem.querySelector('h4').textContent = item.nombre;
                 cartItem.querySelector('.remove-btn').onclick = () => removerDelCarrito(item.id_unico);
                 container.appendChild(cartItem);
             });
-            
             totalPrice.textContent = `$${total.toFixed(2)}`;
         }
 
         function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
 
-        // MÓDULO CHECKOUT (Simulador)
-        function procesarPagoAutomizado() {
+        // === LÓGICA DE PASARELA Y CHECKOUT ===
+        function abrirPasarela() {
             if(carrito.length === 0) return alert("Tu carrito está vacío.");
             
-            // Validación Criptográfica Falsa (Simulación de seguridad para la UI)
-            let esTransaccionSegura = true;
-            carrito.forEach(item => {
-                if(SECURE_CATALOG[item.nombre] !== item.precio) esTransaccionSegura = false;
-            });
-
-            if(!esTransaccionSegura) return alert("Error 403: Alteración de precios detectada.");
+            // Simular validación anti-hack
+            let esSeguro = true;
+            carrito.forEach(i => { if(SECURE_CATALOG[i.nombre] !== i.precio) esSeguro = false; });
+            if(!esSeguro) return alert("Error 403: Alteración detectada.");
 
             toggleCart(); 
-            const modal = document.getElementById('checkoutModal');
-            document.getElementById('step-loading').style.display = 'block';
+            document.getElementById('modal-total-price').textContent = document.getElementById('cart-total-price').textContent;
+            
+            // Reset modal a paso 1
+            document.getElementById('step-methods').style.display = 'block';
+            document.getElementById('step-pay').style.display = 'none';
+            document.getElementById('step-verifying').style.display = 'none';
             document.getElementById('step-success').style.display = 'none';
-            modal.classList.add('active');
+            
+            document.getElementById('checkoutModal').classList.add('active');
+        }
 
+        function seleccionarMetodo(metodo) {
+            metodoPagoElegido = metodo;
+            document.getElementById('step-methods').style.display = 'none';
+            document.getElementById('step-pay').style.display = 'block';
+
+            const addressText = document.getElementById('payment-address');
+            if (metodo === 'paypal') {
+                direccionPagoActual = "luispluajj@gmail.com";
+                addressText.textContent = direccionPagoActual;
+            } else if (metodo === 'ltc') {
+                direccionPagoActual = "ltc1qg6auul6f2mwtjq58ywurt8mdfqnggmlzhxgw3d";
+                addressText.textContent = direccionPagoActual;
+            }
+        }
+
+        function volverAMetodos() {
+            document.getElementById('step-pay').style.display = 'none';
+            document.getElementById('step-methods').style.display = 'block';
+        }
+
+        function copiarDireccion() {
+            navigator.clipboard.writeText(direccionPagoActual).then(() => {
+                mostrarToast("Dirección copiada");
+            });
+        }
+
+        function verificarPago() {
+            document.getElementById('step-pay').style.display = 'none';
+            document.getElementById('step-verifying').style.display = 'block';
+            
+            const verifyText = document.getElementById('verify-text');
+            verifyText.textContent = metodoPagoElegido === 'ltc' 
+                ? "Buscando ID de transacción en la Blockchain de Litecoin..." 
+                : "Sincronizando estado de cuenta con servidores de PayPal...";
+
+            // Simulación de búsqueda en API externa
             setTimeout(() => {
-                let deliveryData = '';
-                carrito.forEach(item => {
-                    const prodIndex = catalogo.findIndex(p => p.id === item.id);
-                    if (catalogo[prodIndex].stock > 0) {
-                        catalogo[prodIndex].stock -= 1; // RESTA STOCK REAL LOCAL
-                        
-                        const randomUser = `user_${Math.floor(Math.random() * 9999)}@avj.com`;
-                        const randomPass = Math.random().toString(36).slice(-8);
-                        deliveryData += `<div style="margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px;">
-                                            <span>▶ ${item.nombre}</span><br>
-                                            Email: ${randomUser}<br>Pass: ${randomPass}
-                                         </div>`;
-                    }
-                });
-
-                guardarCatalogo();
-                renderizarCatalogo(); 
-
-                carrito = [];
-                guardarCarrito();
-                actualizarUI_Carrito();
-
-                document.getElementById('step-loading').style.display = 'none';
+                document.getElementById('step-verifying').style.display = 'none';
                 document.getElementById('step-success').style.display = 'block';
-                document.getElementById('delivery-content').innerHTML = deliveryData;
 
-            }, 3000); 
+                // Bajar el stock real en el backend simulado
+                carrito.forEach(item => {
+                    const pIdx = catalogo.findIndex(p => p.id === item.id);
+                    if (catalogo[pIdx].stock > 0) catalogo[pIdx].stock -= 1;
+                });
+                guardarCatalogo();
+                renderizarCatalogo();
+            }, 4000); 
+        }
+
+        function reclamarCuentaWA() {
+            let total = 0;
+            let message = `Hola *AVJ COMMUNITY* 👾\nAcabo de realizar un pago mediante *${metodoPagoElegido.toUpperCase()}*.\n\nMi pedido es:\n`;
+            
+            carrito.forEach(item => { 
+                const p = SECURE_CATALOG[item.nombre];
+                message += `▪️ ${item.nombre} - $${p.toFixed(2)}\n`; 
+                total += p; 
+            });
+            
+            message += `\n*TOTAL PAGADO: $${total.toFixed(2)}*\n\n_Adjunto mi comprobante para recibir mi cuenta._`;
+            
+            // Vaciar carrito
+            carrito = []; guardarCarrito(); actualizarUI_Carrito();
+            cerrarModal();
+
+            // Abrir WhatsApp con el Handoff
+            window.open(`https://wa.me/593986514739?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
         }
 
         function cerrarModal() { document.getElementById('checkoutModal').classList.remove('active'); }
 
-        // Inicializador Global
         window.onload = () => { inicializarTienda(); initGalaxy(); };
 
-        // === FONDO 3D THREE.JS (GALAXIA) ===
+        // === FONDO 3D ===
         function initGalaxy() {
             if (typeof THREE === 'undefined') return;
             const canvas = document.querySelector('#bg-canvas');
-            const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x050505, 0.0015);
-
+            const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x050505, 0.0015);
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
             camera.position.set(0, 150, 300);
-
             const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio); renderer.setSize(window.innerWidth, window.innerHeight);
 
             const createStarTexture = () => {
-                const c = document.createElement('canvas');
-                c.width = 64; c.height = 64;
-                const ctx = c.getContext('2d');
+                const c = document.createElement('canvas'); c.width = 64; c.height = 64; const ctx = c.getContext('2d');
                 const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-                gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.8)');
-                gradient.addColorStop(0.4, 'rgba(139, 92, 246, 0.5)'); 
-                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, 64, 64);
-                return new THREE.CanvasTexture(c);
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)'); gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.8)');
+                gradient.addColorStop(0.4, 'rgba(139, 92, 246, 0.5)'); gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.fillStyle = gradient; ctx.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c);
             };
             const starTexture = createStarTexture();
 
-            const parameters = { count: 40000, size: 3, radius: 500, branches: 5, spin: 1.2, randomness: 4, randomnessPower: 3, insideColor: '#ffffff', outsideColor: '#8b5cf6' };
+            const p = { count: 40000, size: 3, radius: 500, branches: 5, spin: 1.2, r: 4, rP: 3, in: '#ffffff', out: '#8b5cf6' };
+            const geometry = new THREE.BufferGeometry(); const pos = new Float32Array(p.count * 3); const colors = new Float32Array(p.count * 3);
+            const cIn = new THREE.Color(p.in); const cOut = new THREE.Color(p.out);
 
-            const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(parameters.count * 3);
-            const colors = new Float32Array(parameters.count * 3);
-
-            const colorInside = new THREE.Color(parameters.insideColor);
-            const colorOutside = new THREE.Color(parameters.outsideColor);
-
-            for(let i = 0; i < parameters.count; i++) {
-                const i3 = i * 3;
-                const radius = Math.random() * parameters.radius;
-                const spinAngle = radius * parameters.spin;
-                const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2;
-                
-                const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-                const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-                const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-
-                positions[i3    ] = Math.cos(branchAngle + spinAngle) * radius + randomX;
-                positions[i3 + 1] = randomY; 
-                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
-                const mixedColor = colorInside.clone();
-                mixedColor.lerp(colorOutside, radius / parameters.radius);
-                colors[i3    ] = mixedColor.r; colors[i3 + 1] = mixedColor.g; colors[i3 + 2] = mixedColor.b;
+            for(let i = 0; i < p.count; i++) {
+                const i3 = i * 3, radius = Math.random() * p.radius, spinAngle = radius * p.spin, branchAngle = (i % p.branches) / p.branches * Math.PI * 2;
+                const rX = Math.pow(Math.random(), p.rP) * (Math.random() < 0.5 ? 1 : -1) * p.r * radius;
+                const rY = Math.pow(Math.random(), p.rP) * (Math.random() < 0.5 ? 1 : -1) * p.r * radius;
+                const rZ = Math.pow(Math.random(), p.rP) * (Math.random() < 0.5 ? 1 : -1) * p.r * radius;
+                pos[i3] = Math.cos(branchAngle + spinAngle) * radius + rX; pos[i3+1] = rY; pos[i3+2] = Math.sin(branchAngle + spinAngle) * radius + rZ;
+                const mC = cIn.clone(); mC.lerp(cOut, radius / p.radius);
+                colors[i3] = mC.r; colors[i3+1] = mC.g; colors[i3+2] = mC.b;
             }
 
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            scene.add(new THREE.Points(geometry, new THREE.PointsMaterial({ size: p.size, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending, vertexColors: true, map: starTexture, transparent: true, opacity: 0.9 })));
 
-            const material = new THREE.PointsMaterial({
-                size: parameters.size, sizeAttenuation: true, depthWrite: false, 
-                blending: THREE.AdditiveBlending, vertexColors: true, map: starTexture, 
-                transparent: true, opacity: 0.9
-            });
+            const bgGeo = new THREE.BufferGeometry(); const bgPos = new Float32Array(15000 * 3);
+            for(let i=0; i<15000*3; i++) bgPos[i] = (Math.random() - 0.5) * 2500; 
+            bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
+            const bgStars = new THREE.Points(bgGeo, new THREE.PointsMaterial({ size: 2, color: 0xffffff, map: starTexture, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false }));
+            scene.add(bgStars);
 
-            const galaxy = new THREE.Points(geometry, material);
-            scene.add(galaxy);
-
-            const bgStarsGeometry = new THREE.BufferGeometry();
-            const bgStarsPos = new Float32Array(15000 * 3);
-            for(let i=0; i<15000 * 3; i++) bgStarsPos[i] = (Math.random() - 0.5) * 2500; 
-            
-            bgStarsGeometry.setAttribute('position', new THREE.BufferAttribute(bgStarsPos, 3));
-            const bgStarsMaterial = new THREE.PointsMaterial({
-                size: 2, color: 0xffffff, map: starTexture, transparent: true, opacity: 0.4, 
-                blending: THREE.AdditiveBlending, depthWrite: false
-            });
-            const backgroundStars = new THREE.Points(bgStarsGeometry, bgStarsMaterial);
-            scene.add(backgroundStars);
-
-            let mouseX = 0; let mouseY = 0;
-            document.addEventListener('mousemove', (event) => { 
-                mouseX = (event.clientX / window.innerWidth) - 0.5; 
-                mouseY = (event.clientY / window.innerHeight) - 0.5; 
-            });
+            let mX = 0, mY = 0; document.addEventListener('mousemove', (e) => { mX = (e.clientX / window.innerWidth) - 0.5; mY = (e.clientY / window.innerHeight) - 0.5; });
 
             const clock = new THREE.Clock();
             function animate() {
-                requestAnimationFrame(animate);
-                const elapsedTime = clock.getElapsedTime();
-                
-                galaxy.rotation.y = elapsedTime * 0.05;
-                backgroundStars.rotation.y = elapsedTime * 0.01;
-                backgroundStars.rotation.x = elapsedTime * 0.005;
-
-                camera.position.x += (mouseX * 200 - camera.position.x) * 0.02;
-                camera.position.y += (-mouseY * 150 + 100 - camera.position.y) * 0.02;
-                camera.lookAt(scene.position);
-
-                renderer.render(scene, camera);
+                requestAnimationFrame(animate); const t = clock.getElapsedTime();
+                scene.children[0].rotation.y = t * 0.05; bgStars.rotation.y = t * 0.01; bgStars.rotation.x = t * 0.005;
+                camera.position.x += (mX * 200 - camera.position.x) * 0.02; camera.position.y += (-mY * 150 + 100 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position); renderer.render(scene, camera);
             }
             animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+            window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
         }
     </script>
 </body>
 </html>
-

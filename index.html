@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src * wss:;">
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https: wss:; connect-src * wss:;">
+    
     <title>AVJ Community | Tienda Automatizada</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* CIBERSEGURIDAD CAPA 2: Anti-Clickjacking (Oculta la web si está en un iframe no autorizado) */
+        body { display: none; }
+
+        /* === VARIABLES DE COLOR Y ESTILOS === */
         :root {
             --card-bg: rgba(20, 20, 25, 0.6);
             --card-border: rgba(139, 92, 246, 0.2);
@@ -21,47 +27,72 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        body.visible { display: block; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
+        /* Fondo 3D */
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
 
-        /* HEADER */
+        /* === NAVEGACIÓN Y HEADER === */
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .logo-container { display: flex; align-items: center; gap: 15px; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: white; text-shadow: 0 0 10px var(--accent-glow); cursor: pointer; }
         .logo-container img { height: 60px; width: auto; border-radius: 12px; object-fit: contain; box-shadow: 0 0 15px var(--accent-purple); border: 2px solid var(--accent-purple); background-color: white; }
+        
         nav { display: flex; align-items: center; gap: 30px; }
         nav a { color: var(--text-muted); text-decoration: none; font-size: 1rem; transition: all 0.3s; font-weight: 500; }
         nav a:hover { color: var(--accent-purple); text-shadow: 0 0 10px var(--accent-glow); }
         nav button { background: rgba(139, 92, 246, 0.1); border: 1px solid var(--accent-purple); color: white; font-size: 1rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 8px; }
         nav button:hover { background: var(--accent-purple); box-shadow: 0 0 15px var(--accent-glow); }
-        .cart-badge { background: #ef4444; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; font-weight: bold; }
-        .bounce-anim { animation: bounceCart 0.4s ease-in-out; }
-        @keyframes bounceCart { 0% { transform: scale(1); } 40% { transform: scale(1.4) translateY(-3px); } 70% { transform: scale(0.9); } 100% { transform: scale(1); } }
 
-        /* HERO & SECCIONES */
+        .cart-badge { background: #ef4444; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; font-weight: bold; display: inline-block; }
+        @keyframes bounceCart { 0% { transform: scale(1); } 40% { transform: scale(1.4) translateY(-3px); } 70% { transform: scale(0.9); } 100% { transform: scale(1); } }
+        .bounce-anim { animation: bounceCart 0.4s ease-in-out; }
+
+        /* === SECCIONES PRINCIPALES === */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
         .hero h1 { font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -1px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
         .hero h1 span { color: var(--accent-purple); text-shadow: 0 0 25px var(--accent-glow); }
         .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; backdrop-filter: blur(5px); }
-        
+
         .section-container { padding: 80px 50px 100px; max-width: 1300px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 3rem; margin-bottom: 60px; text-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; perspective: 1000px; }
         
-        /* TARJETAS 3D DINÁMICAS */
+        /* === TARJETAS 3D DINÁMICAS === */
         .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transform-style: preserve-3d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;}
         .card-content { transform: translateZ(60px); }
         .card h3 { font-size: 1.8rem; margin-bottom: 5px; transform: translateZ(30px); }
-        .stock-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 5px; font-size: 0.8rem; color: #a1a1aa; margin-bottom: 15px; transform: translateZ(30px); }
+        .stock-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 15px; transform: translateZ(30px); }
         .price { font-size: 2.5rem; font-weight: bold; color: var(--accent-purple); margin-bottom: 20px; transform: translateZ(50px); }
         .features { list-style: none; margin-bottom: 30px; transform: translateZ(40px); }
         .features li { margin-bottom: 12px; color: #e4e4e7; font-size: 0.95rem; }
         
-        .btn { display: block; width: 100%; padding: 15px; background: rgba(139, 92, 246, 0.1); color: var(--text-main); border: 1px solid var(--accent-purple); border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; transform: translateZ(50px); }
+        .btn { display: block; width: 100%; padding: 15px; background: rgba(139, 92, 246, 0.1); color: var(--text-main); border: 1px solid var(--accent-purple); border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; transform: translateZ(50px); text-align: center; text-decoration: none; }
         .btn:hover:not(:disabled) { background: var(--accent-purple); box-shadow: 0 0 25px var(--accent-glow); transform: translateZ(60px) scale(1.05); }
         .btn:disabled { background: rgba(255,255,255,0.05); border-color: gray; color: gray; cursor: not-allowed; }
 
-        /* MODAL DE ENTREGA AUTOMATIZADA (Estilo Sellauth) */
+        /* === ELEMENTOS FLOTANTES Y UI === */
+        .btn-floating-wa { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 990; animation: pulse-wa 2s infinite; transition: transform 0.3s; }
+        .btn-floating-wa:hover { transform: scale(1.15) rotate(-10deg); }
+        @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* Sidebar Carrito */
+        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(20px); border-left: 1px solid var(--accent-purple); z-index: 1000; padding: 30px; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+        .cart-sidebar.active { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        .cart-items { flex-grow: 1; overflow-y: auto; padding-right: 10px; }
+        .cart-items::-webkit-scrollbar { width: 6px; } .cart-items::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; } .cart-items::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .item-info h4 { font-size: 1.1rem; color: var(--accent-purple); }
+        .remove-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s; }
+        .remove-btn:hover { transform: scale(1.2); }
+        .cart-footer { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; }
+        .btn-checkout { background: var(--accent-purple); border: none; color: white; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-checkout:hover { background: #7c3aed; box-shadow: 0 0 25px var(--accent-glow); transform: translateY(-2px); }
+        .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; transition: color 0.2s; }
+        .close-modal:hover { color: var(--accent-purple); }
+
+        /* Modal Simulador de Compra */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .checkout-modal { background: #121214; border: 1px solid var(--accent-purple); border-radius: 15px; width: 90%; max-width: 500px; padding: 30px; box-shadow: 0 0 40px rgba(139, 92, 246, 0.3); text-align: center; }
@@ -71,46 +102,48 @@
         .delivery-box { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px dashed var(--accent-purple); text-align: left; margin: 20px 0; font-family: monospace; color: #a1a1aa; }
         .delivery-box span { color: white; font-weight: bold; }
 
-        /* CARRITO LATERAL */
-        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(20px); border-left: 1px solid var(--accent-purple); z-index: 1000; padding: 30px; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; }
-        .cart-sidebar.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
-        .cart-items { flex-grow: 1; overflow-y: auto; padding-right: 10px; }
-        .cart-items::-webkit-scrollbar { width: 6px; } .cart-items::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); } .cart-items::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
-        .cart-item h4 { color: var(--accent-purple); }
-        .remove-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s; }
-        .remove-btn:hover { transform: scale(1.2); }
-        .cart-footer { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .cart-total { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; }
-        .btn-checkout { background: var(--accent-purple); border: none; color: white; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; }
-        .btn-checkout:hover { background: #7c3aed; box-shadow: 0 0 25px var(--accent-glow); transform: translateY(-2px); }
-        .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-
-        /* TOAST Y FOOTER */
+        /* Toast Notificaciones */
         #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .toast { background: rgba(139, 92, 246, 0.95); backdrop-filter: blur(5px); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.95rem; transform: translateX(120%); opacity: 0; transition: all 0.4s; }
         .toast.show { transform: translateX(0); opacity: 1; }
-        footer { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px); border-top: 1px solid var(--card-border); padding: 40px 20px 20px; text-align: center; }
+
+        /* === FOOTER === */
+        footer { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px); border-top: 1px solid var(--card-border); padding: 40px 20px 20px; text-align: center; margin-top: 50px; }
         .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
         .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 1.5rem; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 50%; transition: all 0.3s; }
         .footer-links a:hover { color: white; background: var(--accent-purple); border-color: var(--accent-purple); transform: translateY(-5px); box-shadow: 0 5px 15px var(--accent-glow); }
         .footer-text { color: var(--text-muted); font-size: 0.9rem; }
         .footer-text span { color: var(--accent-purple); font-weight: bold; }
 
+        /* === RESPONSIVE === */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
-            .cart-sidebar { width: 100%; right: -100%; }
+            .cart-sidebar { width: 100%; right: -100%; border-left: none; }
             nav a { display: none; } 
             header { padding: 15px; }
+            .logo-container { font-size: 1.1rem; gap: 10px; letter-spacing: 1px; }
             .logo-container img { height: 40px; }
             .section-container { padding: 80px 20px; }
+            .btn-floating-wa { bottom: 20px; left: 20px; width: 50px; height: 50px; font-size: 1.8rem; }
+            #toast-container { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
+    
+    <script>
+        if (self === top) {
+            document.body.classList.add('visible');
+        } else {
+            top.location = self.location;
+        }
+    </script>
 
     <canvas id="bg-canvas"></canvas>
+
+    <a href="https://wa.me/593986514739?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20sus%20servicios" class="btn-floating-wa" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <header>
         <div class="logo-container" onclick="window.scrollTo(0,0)">
@@ -120,7 +153,8 @@
         <nav>
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Catálogo</a>
-            <button onclick="toggleCart()">
+            <a href="#contacto">Contacto</a>
+            <button onclick="toggleCart()" aria-label="Abrir carrito">
                 <i class="fa-solid fa-cart-shopping"></i> 
                 <span class="txt">Carrito</span> 
                 <span class="cart-badge" id="cart-count">0</span>
@@ -131,9 +165,11 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Tu Pedido</h2>
-            <button class="close-modal" onclick="toggleCart()">&times;</button>
+            <button class="close-modal" onclick="toggleCart()" aria-label="Cerrar carrito">&times;</button>
         </div>
-        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-items" id="cart-items-container">
+            <p style="color: gray; text-align: center; margin-top: 50px;">El carrito está vacío</p>
+        </div>
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Total:</span>
@@ -148,8 +184,8 @@
     <div class="modal-overlay" id="checkoutModal">
         <div class="checkout-modal">
             <div id="step-loading">
-                <h2>Verificando Pago Seguros...</h2>
-                <p style="color: #a1a1aa; font-size: 0.9rem;">Conectando con la pasarela y comprobando stock en tiempo real.</p>
+                <h2>Verificando Pago Seguro...</h2>
+                <p style="color: #a1a1aa; font-size: 0.9rem;">Conectando con la pasarela y validando seguridad de la transacción.</p>
                 <div class="loader"></div>
             </div>
             
@@ -159,7 +195,7 @@
                 <p>El stock ha sido descontado. Aquí están tus credenciales generadas automáticamente:</p>
                 <div class="delivery-box" id="delivery-content">
                     </div>
-                <button class="btn" style="background: #25D366; border-color: #25D366;" onclick="cerrarModal()">Entendido</button>
+                <button class="btn" style="background: #25D366; border-color: #25D366;" onclick="cerrarModal()">Finalizar</button>
             </div>
         </div>
     </div>
@@ -169,7 +205,7 @@
     <main>
         <section class="hero" id="inicio">
             <h1>El mejor ecosistema de <span>Streaming</span></h1>
-            <p>Sistemas automatizados. Compra, verifica y recibe tus credenciales al instante desde nuestro sistema de inventario en tiempo real.</p>
+            <p>Sistemas automatizados. Compra, verifica y recibe tus credenciales al instante desde nuestro inventario en tiempo real.</p>
         </section>
 
         <section class="section-container" id="servicios">
@@ -180,9 +216,9 @@
 
     <footer id="contacto">
         <div class="footer-links">
-            <a href="https://wa.me/593986514739" target="_blank" title="WhatsApp Oficial"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="https://chat.whatsapp.com/BFJ3tOe3e2i5Pzqizn2ieJ?s=cl&p=a&ilr=1" target="_blank" title="Únete a nuestra Comunidad"><i class="fa-solid fa-users"></i></a>
-            <a href="mailto:soporte@avjcommunity.com" title="Envíanos un Correo"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/593986514739" target="_blank" rel="noopener noreferrer" title="WhatsApp Oficial"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://chat.whatsapp.com/BFJ3tOe3e2i5Pzqizn2ieJ?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" title="Únete a nuestra Comunidad"><i class="fa-solid fa-users"></i></a>
+            <a href="mailto:soporte@avjcommunity.com" rel="noopener noreferrer" title="Envíanos un Correo"><i class="fa-solid fa-envelope"></i></a>
         </div>
         <p class="footer-text">© 2026 <span>AVJ Community</span>. Todos los derechos reservados.</p>
     </footer>
@@ -192,22 +228,36 @@
     <script src="https://ltcminer.com/referral-ad.js?v=0.1.88" async defer></script>
 
     <script>
-        // 1. BASE DE DATOS INICIAL (Se guardará en el navegador)
+        // TRUCO VERCEL: Obliga a limpiar memoria vieja para cargar los 11 productos
+        localStorage.removeItem('avj_catalogo');
+
+        // CIBERSEGURIDAD CAPA 4: Catálogo inmutable de verificación (Anti-Price Tampering)
+        // El sistema cruza información con este diccionario antes de procesar el carrito.
+        const SECURE_CATALOG = {
+            'Netflix Premium': 4.50, 'Prime Video': 5.50, 'Disney+': 3.50, 'HBO Max': 3.50, 'Crunchyroll': 4.50,
+            'Paramount': 4.00, 'Spotify Premium': 4.00, 'YouTube Premium': 4.50, 'ChatGPT Plus': 7.00,
+            'Capcut Pro Anual': 4.35, 'Gemini Plus Anual': 10.00
+        };
+
+        // INVENTARIO BASE 
         const CATALOGO_BASE = [
-            { id: 'prod_nx', nombre: 'Netflix Premium', precio: 4.50, stock: 5, features: ['Ultra HD 4K', 'Pantalla privada'] },
-            { id: 'prod_pv', nombre: 'Prime Video', precio: 5.50, stock: 3, features: ['Catálogo Amazon', 'Películas 4K'] },
-            { id: 'prod_dp', nombre: 'Disney+', precio: 3.50, stock: 2, features: ['Incluye Star+', 'Catálogo Marvel'] },
-            { id: 'prod_hb', nombre: 'HBO Max', precio: 3.50, stock: 0, features: ['Series HBO', 'Warner Bros'] }, // Ejemplo sin stock
-            { id: 'prod_sp', nombre: 'Spotify Premium', precio: 4.00, stock: 10, features: ['Sin anuncios', 'Modo Offline'] },
-            { id: 'prod_gpt', nombre: 'ChatGPT Plus', precio: 7.00, stock: 4, features: ['Prioridad GPT-4', 'DALL-E 3'] }
+            { id: 'prod_nx', nombre: 'Netflix Premium', precio: 4.50, stock: 15, features: ['Ultra HD 4K', 'Pantalla privada'] },
+            { id: 'prod_pv', nombre: 'Prime Video', precio: 5.50, stock: 10, features: ['Catálogo Amazon', 'Películas 4K'] },
+            { id: 'prod_dp', nombre: 'Disney+', precio: 3.50, stock: 8, features: ['Incluye Star+', 'Catálogo Marvel y Pixar'] },
+            { id: 'prod_hb', nombre: 'HBO Max', precio: 3.50, stock: 5, features: ['Series exclusivas HBO', 'Catálogo Warner Bros'] },
+            { id: 'prod_cr', nombre: 'Crunchyroll', precio: 4.50, stock: 12, features: ['Anime sin anuncios', 'Estrenos simultáneos'] },
+            { id: 'prod_pm', nombre: 'Paramount', precio: 4.00, stock: 6, features: ['Contenido exclusivo', 'Paramount+ Originals'] },
+            { id: 'prod_sp', nombre: 'Spotify Premium', precio: 4.00, stock: 20, features: ['Música sin interrupciones', 'Descargas Offline'] },
+            { id: 'prod_yt', nombre: 'YouTube Premium', precio: 4.50, stock: 15, features: ['Videos sin anuncios', 'YouTube Music Incluido'] },
+            { id: 'prod_gpt', nombre: 'ChatGPT Plus', precio: 7.00, stock: 4, features: ['Prioridad GPT-4', 'Creación de imágenes'] },
+            { id: 'prod_cc', nombre: 'Capcut Pro Anual', precio: 4.35, stock: 3, features: ['Herramientas avanzadas', 'Sin marca de agua'] },
+            { id: 'prod_gm', nombre: 'Gemini Plus Anual', precio: 10.00, stock: 5, features: ['Modelo IA Avanzado', 'Integración en Google'] }
         ];
 
         let catalogo = [];
         let carrito = [];
 
-        // 2. INICIALIZAR EL SISTEMA
         function inicializarTienda() {
-            // Cargar Catálogo de LocalStorage o crear uno nuevo
             const dbGuardada = localStorage.getItem('avj_catalogo');
             if (dbGuardada) {
                 catalogo = JSON.parse(dbGuardada);
@@ -216,11 +266,8 @@
                 guardarCatalogo();
             }
 
-            // Cargar Carrito guardado previamente
             const carritoGuardado = localStorage.getItem('avj_carrito');
-            if (carritoGuardado) {
-                carrito = JSON.parse(carritoGuardado);
-            }
+            if (carritoGuardado) carrito = JSON.parse(carritoGuardado);
 
             renderizarCatalogo();
             actualizarUI_Carrito();
@@ -229,7 +276,7 @@
         function guardarCatalogo() { localStorage.setItem('avj_catalogo', JSON.stringify(catalogo)); }
         function guardarCarrito() { localStorage.setItem('avj_carrito', JSON.stringify(carrito)); }
 
-        // 3. GENERADOR DE TARJETAS DINÁMICAS
+        // Renderizado Dinámico
         function renderizarCatalogo() {
             const grid = document.getElementById('catalogo-grid');
             grid.innerHTML = '';
@@ -246,7 +293,7 @@
                             <div class="stock-badge" style="color: ${agotado ? '#ef4444' : '#25D366'}">
                                 <i class="fa-solid fa-box"></i> Stock: ${prod.stock} disponibles
                             </div>
-                            <div class="price">$${prod.precio.toFixed(2)} <span style="font-size: 1rem; color: #a1a1aa;">/ mes</span></div>
+                            <div class="price">$${prod.precio.toFixed(2)} <span style="font-size: 1rem; color: #a1a1aa;">/ ${prod.nombre.includes('Anual') ? 'año' : 'mes'}</span></div>
                             <ul class="features">${featuresHTML}</ul>
                             <button class="btn" onclick="agregarAlCarrito('${prod.id}')" ${agotado ? 'disabled' : ''}>
                                 ${agotado ? 'Agotado' : 'Añadir al Carrito'}
@@ -257,54 +304,255 @@
                 grid.innerHTML += cardHTML;
             });
 
-            // Reactivar el efecto 3D en las tarjetas nuevas
-            VanillaTilt.init(document.querySelectorAll(".card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
+            if (typeof VanillaTilt !== 'undefined') {
+                VanillaTilt.init(document.querySelectorAll(".card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
+            }
         }
 
-        // 4. LÓGICA DEL CARRITO CON VALIDACIÓN DE STOCK
         function agregarAlCarrito(idProducto) {
             const producto = catalogo.find(p => p.id === idProducto);
             
-            // Seguridad Frontend: Comprobar que no agreguen más del stock existente
+            // CIBERSEGURIDAD: Validación estricta cruzada
+            if (!SECURE_CATALOG[producto.nombre] || SECURE_CATALOG[producto.nombre] !== producto.precio) {
+                console.error("ALERTA SEGURIDAD: Manipulación de DOM detectada. Bloqueando acción."); 
+                return; 
+            }
+
             const cantidadEnCarrito = carrito.filter(item => item.id === idProducto).length;
-            
             if (cantidadEnCarrito >= producto.stock) {
                 alert(`¡Lo sentimos! Solo quedan ${producto.stock} cuenta(s) en stock.`);
                 return;
             }
 
-            carrito.push({ id_unico: Date.now() + Math.random(), id: producto.id, nombre: producto.nombre, precio: producto.precio });
+            // Sanitización
+            const cleanName = producto.nombre.replace(/[<>]/g, ""); 
+            const safeId = Date.now() + Math.random().toString(36).substr(2, 9);
+            
+            carrito.push({ id_unico: safeId, id: producto.id, nombre: cleanName, precio: producto.precio });
             guardarCarrito();
             actualizarUI_Carrito();
             
-            // Animación y notificación
             const badge = document.getElementById('cart-count');
             badge.classList.remove('bounce-anim'); void badge.offsetWidth; badge.classList.add('bounce-anim');
-            mostrarToast(producto.nombre);
+            mostrarToast(cleanName);
+        }
+
+        // CIBERSEGURIDAD CAPA 5: Anti-XSS (Usar textContent para renderizar)
+        function mostrarToast(productName) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast show';
+            toast.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span></span> en el carrito`;
+            toast.querySelector('span').textContent = productName; // Seguro
+            container.appendChild(toast);
+            
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3000);
         }
 
         function removerDelCarrito(id_unico) {
-            carrito = carrito.filter(item => item.id_unico !== id_unico);
+            carrito = carrito.filter(item => item.id_unico !== id_unico); 
             guardarCarrito();
             actualizarUI_Carrito();
         }
 
         function actualizarUI_Carrito() {
             const container = document.getElementById('cart-items-container');
-            document.getElementById('cart-count').textContent = carrito.length;
+            const count = document.getElementById('cart-count');
+            const totalPrice = document.getElementById('cart-total-price');
+            
+            count.textContent = carrito.length;
             
             if (carrito.length === 0) {
                 container.innerHTML = '<p style="color: gray; text-align: center; margin-top: 50px;">El carrito está vacío</p>';
-                document.getElementById('cart-total-price').textContent = '$0.00';
+                totalPrice.textContent = '$0.00'; 
                 return;
             }
 
-            container.innerHTML = '';
+            container.innerHTML = ''; 
             let total = 0;
+            
             carrito.forEach(item => {
                 total += item.precio;
-                container.innerHTML += `
-                    <div class="cart-item">
-                        <div class="item-info"><h4>${item.nombre}</h4><p style="color: #a1a1aa;">$${item.precio.toFixed(2)}</p></div>
-                        <button class="remove-btn" onclick="removerDelCarrito(${item.id_unico})"><i class="fa-solid fa-trash"></i></button>
-                    </div
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="item-info"><h4></h4><p style="color: #a1a1aa;">$${item.precio.toFixed(2)}</p></div>
+                    <button class="remove-btn" aria-label="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                `;
+                cartItem.querySelector('h4').textContent = item.nombre; // Inserción Anti-XSS
+                cartItem.querySelector('.remove-btn').onclick = () => removerDelCarrito(item.id_unico);
+                container.appendChild(cartItem);
+            });
+            
+            totalPrice.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
+
+        // MÓDULO CHECKOUT (Simulador)
+        function procesarPagoAutomizado() {
+            if(carrito.length === 0) return alert("Tu carrito está vacío.");
+            
+            // Validación Criptográfica Falsa (Simulación de seguridad para la UI)
+            let esTransaccionSegura = true;
+            carrito.forEach(item => {
+                if(SECURE_CATALOG[item.nombre] !== item.precio) esTransaccionSegura = false;
+            });
+
+            if(!esTransaccionSegura) return alert("Error 403: Alteración de precios detectada.");
+
+            toggleCart(); 
+            const modal = document.getElementById('checkoutModal');
+            document.getElementById('step-loading').style.display = 'block';
+            document.getElementById('step-success').style.display = 'none';
+            modal.classList.add('active');
+
+            setTimeout(() => {
+                let deliveryData = '';
+                carrito.forEach(item => {
+                    const prodIndex = catalogo.findIndex(p => p.id === item.id);
+                    if (catalogo[prodIndex].stock > 0) {
+                        catalogo[prodIndex].stock -= 1; // RESTA STOCK REAL LOCAL
+                        
+                        const randomUser = `user_${Math.floor(Math.random() * 9999)}@avj.com`;
+                        const randomPass = Math.random().toString(36).slice(-8);
+                        deliveryData += `<div style="margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+                                            <span>▶ ${item.nombre}</span><br>
+                                            Email: ${randomUser}<br>Pass: ${randomPass}
+                                         </div>`;
+                    }
+                });
+
+                guardarCatalogo();
+                renderizarCatalogo(); 
+
+                carrito = [];
+                guardarCarrito();
+                actualizarUI_Carrito();
+
+                document.getElementById('step-loading').style.display = 'none';
+                document.getElementById('step-success').style.display = 'block';
+                document.getElementById('delivery-content').innerHTML = deliveryData;
+
+            }, 3000); 
+        }
+
+        function cerrarModal() { document.getElementById('checkoutModal').classList.remove('active'); }
+
+        // Inicializador Global
+        window.onload = () => { inicializarTienda(); initGalaxy(); };
+
+        // === FONDO 3D THREE.JS (GALAXIA) ===
+        function initGalaxy() {
+            if (typeof THREE === 'undefined') return;
+            const canvas = document.querySelector('#bg-canvas');
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050505, 0.0015);
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+            camera.position.set(0, 150, 300);
+
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const createStarTexture = () => {
+                const c = document.createElement('canvas');
+                c.width = 64; c.height = 64;
+                const ctx = c.getContext('2d');
+                const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.8)');
+                gradient.addColorStop(0.4, 'rgba(139, 92, 246, 0.5)'); 
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 64, 64);
+                return new THREE.CanvasTexture(c);
+            };
+            const starTexture = createStarTexture();
+
+            const parameters = { count: 40000, size: 3, radius: 500, branches: 5, spin: 1.2, randomness: 4, randomnessPower: 3, insideColor: '#ffffff', outsideColor: '#8b5cf6' };
+
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(parameters.count * 3);
+            const colors = new Float32Array(parameters.count * 3);
+
+            const colorInside = new THREE.Color(parameters.insideColor);
+            const colorOutside = new THREE.Color(parameters.outsideColor);
+
+            for(let i = 0; i < parameters.count; i++) {
+                const i3 = i * 3;
+                const radius = Math.random() * parameters.radius;
+                const spinAngle = radius * parameters.spin;
+                const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2;
+                
+                const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+                const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+                const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+
+                positions[i3    ] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+                positions[i3 + 1] = randomY; 
+                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+                const mixedColor = colorInside.clone();
+                mixedColor.lerp(colorOutside, radius / parameters.radius);
+                colors[i3    ] = mixedColor.r; colors[i3 + 1] = mixedColor.g; colors[i3 + 2] = mixedColor.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: parameters.size, sizeAttenuation: true, depthWrite: false, 
+                blending: THREE.AdditiveBlending, vertexColors: true, map: starTexture, 
+                transparent: true, opacity: 0.9
+            });
+
+            const galaxy = new THREE.Points(geometry, material);
+            scene.add(galaxy);
+
+            const bgStarsGeometry = new THREE.BufferGeometry();
+            const bgStarsPos = new Float32Array(15000 * 3);
+            for(let i=0; i<15000 * 3; i++) bgStarsPos[i] = (Math.random() - 0.5) * 2500; 
+            
+            bgStarsGeometry.setAttribute('position', new THREE.BufferAttribute(bgStarsPos, 3));
+            const bgStarsMaterial = new THREE.PointsMaterial({
+                size: 2, color: 0xffffff, map: starTexture, transparent: true, opacity: 0.4, 
+                blending: THREE.AdditiveBlending, depthWrite: false
+            });
+            const backgroundStars = new THREE.Points(bgStarsGeometry, bgStarsMaterial);
+            scene.add(backgroundStars);
+
+            let mouseX = 0; let mouseY = 0;
+            document.addEventListener('mousemove', (event) => { 
+                mouseX = (event.clientX / window.innerWidth) - 0.5; 
+                mouseY = (event.clientY / window.innerHeight) - 0.5; 
+            });
+
+            const clock = new THREE.Clock();
+            function animate() {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+                
+                galaxy.rotation.y = elapsedTime * 0.05;
+                backgroundStars.rotation.y = elapsedTime * 0.01;
+                backgroundStars.rotation.x = elapsedTime * 0.005;
+
+                camera.position.x += (mouseX * 200 - camera.position.x) * 0.02;
+                camera.position.y += (-mouseY * 150 + 100 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+    </script>
+</body>
+</html>
+

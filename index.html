@@ -1,4 +1,4 @@
-                <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -31,97 +31,103 @@
         .logo-container { display: flex; align-items: center; gap: 15px; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: white; text-shadow: 0 0 10px var(--accent-glow); cursor: pointer; }
         .logo-container img { height: 60px; width: auto; border-radius: 12px; object-fit: contain; box-shadow: 0 0 15px var(--accent-purple); border: 2px solid var(--accent-purple); background-color: white; }
         
-        nav { display: flex; align-items: center; gap: 30px; }
-        nav a { color: var(--text-muted); text-decoration: none; font-size: 1rem; transition: all 0.3s; font-weight: 500; }
+        nav { display: flex; align-items: center; gap: 35px; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 1.05rem; transition: all 0.3s; font-weight: 500; }
         nav a:hover { color: var(--accent-purple); text-shadow: 0 0 10px var(--accent-glow); }
-        nav button { background: rgba(139, 92, 246, 0.1); border: 1px solid var(--accent-purple); color: white; font-size: 1rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 8px; }
-        nav button:hover { background: var(--accent-purple); box-shadow: 0 0 15px var(--accent-glow); }
+        nav button { background: rgba(139, 92, 246, 0.1); border: 1px solid var(--accent-purple); color: white; font-size: 1rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 8px; }
+        nav button:hover { background: var(--accent-purple); box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
 
-        .cart-badge { background: #ef4444; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; font-weight: bold; display: inline-block; }
+        .cart-badge { background: #ef4444; color: white; border-radius: 50%; padding: 2px 8px; font-size: 0.85rem; font-weight: bold; display: inline-block; }
         @keyframes bounceCart { 0% { transform: scale(1); } 40% { transform: scale(1.4) translateY(-3px); } 70% { transform: scale(0.9); } 100% { transform: scale(1); } }
         .bounce-anim { animation: bounceCart 0.4s ease-in-out; }
 
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-        .hero h1 { font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -1px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        .hero h1 { font-size: 5.5rem; margin-bottom: 20px; letter-spacing: -2px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); line-height: 1.1; max-width: 1000px; }
         .hero h1 span { color: var(--accent-purple); text-shadow: 0 0 25px var(--accent-glow); }
-        .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; backdrop-filter: blur(5px); }
+        .hero p { color: var(--text-muted); font-size: 1.3rem; max-width: 700px; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; backdrop-filter: blur(5px); line-height: 1.8; }
 
-        .section-container { padding: 80px 50px 100px; max-width: 1300px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 3rem; margin-bottom: 60px; text-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; perspective: 1000px; }
+        .section-container { padding: 80px 50px 100px; max-width: 1400px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 3.5rem; margin-bottom: 60px; text-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; perspective: 1000px; }
         
-        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transform-style: preserve-3d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;}
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transform-style: preserve-3d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; transition: border-color 0.3s; }
+        .card:hover { border-color: rgba(139, 92, 246, 0.5); }
         .card-content { transform: translateZ(60px); }
-        .card h3 { font-size: 1.8rem; margin-bottom: 5px; transform: translateZ(30px); }
-        .stock-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 15px; transform: translateZ(30px); }
-        .price { font-size: 2.5rem; font-weight: bold; color: var(--accent-purple); margin-bottom: 20px; transform: translateZ(50px); }
+        .card h3 { font-size: 1.8rem; margin-bottom: 8px; transform: translateZ(30px); letter-spacing: 0.5px; }
+        .stock-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 20px; transform: translateZ(30px); font-weight: 600; }
+        .price { font-size: 2.8rem; font-weight: bold; color: var(--accent-purple); margin-bottom: 20px; transform: translateZ(50px); }
         .features { list-style: none; margin-bottom: 30px; transform: translateZ(40px); }
-        .features li { margin-bottom: 12px; color: #e4e4e7; font-size: 0.95rem; }
+        .features li { margin-bottom: 12px; color: #e4e4e7; font-size: 1rem; }
         
-        .btn { display: block; width: 100%; padding: 15px; background: rgba(139, 92, 246, 0.1); color: var(--text-main); border: 1px solid var(--accent-purple); border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; transform: translateZ(50px); text-align: center; text-decoration: none; }
+        .btn { display: block; width: 100%; padding: 16px; background: rgba(139, 92, 246, 0.1); color: var(--text-main); border: 1px solid var(--accent-purple); border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; transform: translateZ(50px); text-align: center; text-decoration: none; }
         .btn:hover:not(:disabled) { background: var(--accent-purple); box-shadow: 0 0 25px var(--accent-glow); transform: translateZ(60px) scale(1.05); }
         .btn:disabled { background: rgba(255,255,255,0.05); border-color: gray; color: gray; cursor: not-allowed; }
 
-        .btn-floating-wa { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 990; animation: pulse-wa 2s infinite; transition: transform 0.3s; }
+        .btn-floating-wa { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; background-color: #25d366; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 990; animation: pulse-wa 2s infinite; transition: transform 0.3s; }
         .btn-floating-wa:hover { transform: scale(1.15) rotate(-10deg); }
         @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(20px); border-left: 1px solid var(--accent-purple); z-index: 1000; padding: 30px; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+        .cart-sidebar { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(20px); border-left: 1px solid var(--accent-purple); z-index: 1000; padding: 40px; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
         .cart-sidebar.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
-        .cart-items { flex-grow: 1; overflow-y: auto; padding-right: 10px; }
-        .cart-items::-webkit-scrollbar { width: 6px; } .cart-items::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; } .cart-items::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
-        .item-info h4 { font-size: 1.1rem; color: var(--accent-purple); }
-        .remove-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; font-size: 1.2rem;}
+        .cart-items { flex-grow: 1; overflow-y: auto; padding-right: 15px; }
+        .cart-items::-webkit-scrollbar { width: 8px; } .cart-items::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; } .cart-items::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 15px; transition: background 0.3s;}
+        .cart-item:hover { background: rgba(255,255,255,0.08); }
+        .item-info h4 { font-size: 1.2rem; color: var(--accent-purple); margin-bottom: 5px;}
+        .remove-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.3rem; transition: transform 0.2s; }
         .remove-btn:hover { transform: scale(1.2); }
-        .cart-footer { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .cart-total { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; }
-        .btn-checkout { background: var(--accent-purple); border: none; color: white; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .cart-footer { padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.8rem; font-weight: bold; margin-bottom: 25px; }
+        .btn-checkout { background: var(--accent-purple); border: none; color: white; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); width: 100%; padding: 18px; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: all 0.3s; }
         .btn-checkout:hover { background: #7c3aed; box-shadow: 0 0 25px var(--accent-glow); transform: translateY(-2px); }
-        .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; transition: color 0.2s; }
+        .close-modal { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
         .close-modal:hover { color: var(--accent-purple); }
 
-        /* === NUEVA PASARELA DE PAGOS === */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .checkout-modal { background: #121214; border: 1px solid var(--accent-purple); border-radius: 15px; width: 90%; max-width: 450px; padding: 30px; box-shadow: 0 0 40px rgba(139, 92, 246, 0.3); text-align: center; position: relative; }
+        .checkout-modal { background: #121214; border: 1px solid var(--accent-purple); border-radius: 18px; width: 90%; max-width: 550px; padding: 40px; box-shadow: 0 0 40px rgba(139, 92, 246, 0.4); text-align: center; position: relative; }
         
         .payment-methods { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
-        .payment-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 15px; border-radius: 10px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 15px; transition: all 0.3s; }
-        .payment-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-purple); transform: translateY(-2px); }
-        .payment-btn.paypal:hover { border-color: #00457C; box-shadow: 0 0 15px rgba(0, 69, 124, 0.5); }
-        .payment-btn.ltc:hover { border-color: #345D9D; box-shadow: 0 0 15px rgba(52, 93, 157, 0.5); }
+        .payment-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 18px; border-radius: 12px; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 15px; transition: all 0.3s; font-weight: 500;}
+        .payment-btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .payment-btn.paypal:hover { border-color: #00457C; box-shadow: 0 0 20px rgba(0, 69, 124, 0.5); }
+        .payment-btn.ltc:hover { border-color: #345D9D; box-shadow: 0 0 20px rgba(52, 93, 157, 0.5); }
         
-        .copy-box { background: #050505; border: 1px dashed var(--accent-purple); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin: 20px 0; word-break: break-all; text-align: left; }
-        .copy-box span { color: #a1a1aa; font-family: monospace; font-size: 0.95rem; }
-        .btn-copy { background: var(--accent-purple); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .copy-box { background: #050505; border: 1px dashed var(--accent-purple); padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin: 25px 0; word-break: break-all; text-align: left; }
+        .copy-box span { color: #ffffff; font-family: monospace; font-size: 1.1rem; }
+        .btn-copy { background: var(--accent-purple); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: 0.3s; font-weight: bold;}
         .btn-copy:hover { background: #7c3aed; }
 
         .loader { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent-purple); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-        .toast { background: rgba(139, 92, 246, 0.95); backdrop-filter: blur(5px); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.95rem; transform: translateX(120%); opacity: 0; transition: all 0.4s; }
+        #toast-container { position: fixed; bottom: 40px; right: 40px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
+        .toast { background: rgba(139, 92, 246, 0.95); backdrop-filter: blur(5px); color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 1.05rem; transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         .toast.show { transform: translateX(0); opacity: 1; }
 
-        footer { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px); border-top: 1px solid var(--card-border); padding: 40px 20px 20px; text-align: center; margin-top: 50px; }
-        .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 1.5rem; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 50%; transition: all 0.3s; }
-        .footer-links a:hover { color: white; background: var(--accent-purple); border-color: var(--accent-purple); transform: translateY(-5px); box-shadow: 0 5px 15px var(--accent-glow); }
-        .footer-text { color: var(--text-muted); font-size: 0.9rem; }
+        footer { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px); border-top: 1px solid var(--card-border); padding: 50px 20px 30px; text-align: center; margin-top: 80px; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 1.8rem; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 50%; transition: all 0.3s; }
+        .footer-links a:hover { color: white; background: var(--accent-purple); border-color: var(--accent-purple); transform: translateY(-5px); box-shadow: 0 5px 20px var(--accent-glow); }
+        .footer-text { color: var(--text-muted); font-size: 1rem; }
         .footer-text span { color: var(--accent-purple); font-weight: bold; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .cart-sidebar { width: 100%; right: -100%; border-left: none; }
+            .hero h1 { font-size: 3.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .cart-sidebar { width: 100%; right: -100%; border-left: none; padding: 25px;}
             nav a { display: none; } 
-            header { padding: 15px; }
+            header { padding: 15px 20px; }
             .logo-container { font-size: 1.1rem; gap: 10px; letter-spacing: 1px; }
-            .logo-container img { height: 40px; }
+            .logo-container img { height: 45px; }
             .section-container { padding: 80px 20px; }
-            .btn-floating-wa { bottom: 20px; left: 20px; width: 50px; height: 50px; font-size: 1.8rem; }
-            #toast-container { bottom: 20px; right: 20px; }
+            .section-title { font-size: 2.5rem; }
+            .btn-floating-wa { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 2rem; }
+            #toast-container { bottom: 20px; right: 20px; left: 20px;}
+            .toast { font-size: 0.95rem; padding: 12px 15px; }
+            .checkout-modal { padding: 25px; }
+            .copy-box { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -173,15 +179,14 @@
         </div>
     </div>
 
-    <!-- === NUEVA PASARELA DE PAGOS === -->
+    <!-- PASARELA CON VERIFICACIÓN REAL -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="checkout-modal">
             <button class="close-modal" style="position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #a1a1aa;" onclick="cerrarModal()">&times;</button>
             
-            <!-- PASO 1: Elegir Método -->
             <div id="step-methods">
-                <h2>Total a pagar: <span id="modal-total-price" style="color: var(--accent-purple);"></span></h2>
-                <p style="color: #a1a1aa; font-size: 0.95rem; margin-top: 5px;">Selecciona tu método de pago preferido</p>
+                <h2 style="font-size: 1.8rem; margin-bottom: 5px;">Total a pagar: <span id="modal-total-price" style="color: var(--accent-purple);"></span></h2>
+                <p style="color: #a1a1aa; font-size: 1rem; margin-bottom: 25px;">Selecciona tu método de pago preferido</p>
                 
                 <div class="payment-methods">
                     <button class="payment-btn paypal" onclick="seleccionarMetodo('paypal')">
@@ -193,34 +198,32 @@
                 </div>
             </div>
 
-            <!-- PASO 2: Instrucciones de Pago -->
             <div id="step-pay" style="display: none;">
-                <h2>Completa tu pago</h2>
-                <p style="color: #a1a1aa; font-size: 0.9rem;">Envía el monto exacto a la siguiente dirección:</p>
+                <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Completa tu pago</h2>
+                <p style="color: #a1a1aa; font-size: 1.05rem;">Envía el monto exacto a la siguiente dirección:</p>
                 
                 <div class="copy-box">
                     <span id="payment-address"></span>
                     <button class="btn-copy" onclick="copiarDireccion()"><i class="fa-solid fa-copy"></i> Copiar</button>
                 </div>
 
-                <button class="btn-checkout" style="margin-top: 20px;" onclick="verificarPago()">
-                    Ya pagué, verificar transacción
+                <!-- Botón de Verificación Real -->
+                <button class="btn-checkout" style="margin-top: 25px;" onclick="verificarPagoReal()">
+                    <i class="fa-solid fa-magnifying-glass"></i> Ya pagué, verificar transacción
                 </button>
-                <button style="background: none; border: none; color: #a1a1aa; margin-top: 15px; cursor: pointer; text-decoration: underline;" onclick="volverAMetodos()">Volver atrás</button>
+                <button style="background: none; border: none; color: #a1a1aa; margin-top: 20px; cursor: pointer; text-decoration: underline; font-size: 1rem;" onclick="volverAMetodos()">Volver atrás</button>
             </div>
 
-            <!-- PASO 3: Verificación Simulada -->
             <div id="step-verifying" style="display: none;">
-                <h2>Buscando Transacción...</h2>
-                <p id="verify-text" style="color: #a1a1aa; font-size: 0.9rem;">Conectando con Blockchair / PayPal Node...</p>
+                <h2>Verificando en la Red...</h2>
+                <p id="verify-text" style="color: #a1a1aa; font-size: 0.9rem;">Buscando confirmaciones en Blockchain...</p>
                 <div class="loader"></div>
             </div>
             
-            <!-- PASO 4: Éxito y WhatsApp -->
             <div id="step-success" style="display: none;">
                 <i class="fa-solid fa-circle-check fa-4x" style="color: #25D366; margin-bottom: 15px;"></i>
                 <h2>Pago Detectado</h2>
-                <p style="color: #a1a1aa; margin-bottom: 20px;">Tu pago ha sido pre-aprobado en la red. Para liberar tus credenciales y aplicar la garantía, envía el comprobante a nuestro sistema.</p>
+                <p style="color: #a1a1aa; margin-bottom: 20px;">Tu pago ha sido validado en la red. Presiona el botón para reclamar tus credenciales.</p>
                 <button class="btn" style="background: #25D366; border-color: #25D366; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="reclamarCuentaWA()">
                     <i class="fa-brands fa-whatsapp fa-lg"></i> Reclamar Cuentas
                 </button>
@@ -233,7 +236,7 @@
     <main>
         <section class="hero" id="inicio">
             <h1>El mejor ecosistema de <span>Streaming</span></h1>
-            <p>Sistemas automatizados. Compra, verifica y recibe tus credenciales al instante desde nuestro inventario en tiempo real.</p>
+            <p>Sistemas optimizados. Compra, verifica de forma segura en la blockchain y recibe tus credenciales al instante.</p>
         </section>
 
         <section class="section-container" id="servicios">
@@ -253,15 +256,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://ltcminer.com/referral-ad.js?v=0.1.88" async defer></script>
 
     <script>
+        // Limpiar caché para forzar carga de catálogo completo
         localStorage.removeItem('avj_catalogo');
 
         const SECURE_CATALOG = {
             'Netflix Premium': 4.50, 'Prime Video': 5.50, 'Disney+': 3.50, 'HBO Max': 3.50, 'Crunchyroll': 4.50,
             'Paramount': 4.00, 'Spotify Premium': 4.00, 'YouTube Premium': 4.50, 'ChatGPT Plus': 7.00,
-            'Capcut Pro Anual': 4.35, 'Gemini Plus Anual': 10.00
+             'Capcut Pro Anual': 4.35, 'Gemini Plus Anual': 10.00
         };
 
         const CATALOGO_BASE = [
@@ -306,13 +309,13 @@
                 let featuresHTML = '';
                 prod.features.forEach(f => featuresHTML += `<li>✓ ${f}</li>`);
                 grid.innerHTML += `
-                    <div class="card" data-tilt data-tilt-max="10" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                    <div class="card" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-max-glare="0.2">
                         <div class="card-content">
                             <h3>${prod.nombre}</h3>
                             <div class="stock-badge" style="color: ${agotado ? '#ef4444' : '#25D366'}">
                                 <i class="fa-solid fa-box"></i> Stock: ${prod.stock} disponibles
                             </div>
-                            <div class="price">$${prod.precio.toFixed(2)} <span style="font-size: 1rem; color: #a1a1aa;">/ ${prod.nombre.includes('Anual') ? 'año' : 'mes'}</span></div>
+                            <div class="price">$${prod.precio.toFixed(2)} <span style="font-size: 1.1rem; color: #a1a1aa;">/ ${prod.nombre.includes('Anual') ? 'año' : 'mes'}</span></div>
                             <ul class="features">${featuresHTML}</ul>
                             <button class="btn" onclick="agregarAlCarrito('${prod.id}')" ${agotado ? 'disabled' : ''}>
                                 ${agotado ? 'Agotado' : 'Añadir al Carrito'}
@@ -321,7 +324,7 @@
                     </div>
                 `;
             });
-            if (typeof VanillaTilt !== 'undefined') VanillaTilt.init(document.querySelectorAll(".card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
+            if (typeof VanillaTilt !== 'undefined') VanillaTilt.init(document.querySelectorAll(".card"), { max: 8, speed: 400, glare: true, "max-glare": 0.2 });
         }
 
         function agregarAlCarrito(idProducto) {
@@ -362,7 +365,7 @@
             count.textContent = carrito.length;
             
             if (carrito.length === 0) {
-                container.innerHTML = '<p style="color: gray; text-align: center; margin-top: 50px;">El carrito está vacío</p>';
+                container.innerHTML = '<p style="color: gray; text-align: center; margin-top: 50px; font-size: 1.1rem;">El carrito está vacío</p>';
                 totalPrice.textContent = '$0.00'; return;
             }
 
@@ -384,11 +387,9 @@
 
         function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
 
-        // === LÓGICA DE PASARELA Y CHECKOUT ===
+        // === LÓGICA DE PASARELA (Llamada Real al Backend de Vercel) ===
         function abrirPasarela() {
             if(carrito.length === 0) return alert("Tu carrito está vacío.");
-            
-            // Simular validación anti-hack
             let esSeguro = true;
             carrito.forEach(i => { if(SECURE_CATALOG[i.nombre] !== i.precio) esSeguro = false; });
             if(!esSeguro) return alert("Error 403: Alteración detectada.");
@@ -396,12 +397,10 @@
             toggleCart(); 
             document.getElementById('modal-total-price').textContent = document.getElementById('cart-total-price').textContent;
             
-            // Reset modal a paso 1
             document.getElementById('step-methods').style.display = 'block';
             document.getElementById('step-pay').style.display = 'none';
             document.getElementById('step-verifying').style.display = 'none';
             document.getElementById('step-success').style.display = 'none';
-            
             document.getElementById('checkoutModal').classList.add('active');
         }
 
@@ -426,33 +425,65 @@
         }
 
         function copiarDireccion() {
-            navigator.clipboard.writeText(direccionPagoActual).then(() => {
-                mostrarToast("Dirección copiada");
-            });
+            navigator.clipboard.writeText(direccionPagoActual).then(() => mostrarToast("Dirección copiada"));
         }
 
-        function verificarPago() {
+        // Esta es la función que hace el llamado REAL a tu servidor Vercel
+        async function verificarPagoReal() {
+            if (metodoPagoElegido !== 'ltc') {
+                alert("La verificación automática directa está disponible para Litecoin. Para PayPal, se verificará vía WhatsApp adjuntando el comprobante.");
+                return reclamarCuentaWA(); // PayPal redirige directo al no tener API pública sin OAuth
+            }
+
+            const txHash = prompt("Por favor, pega el ID de Transacción (Hash) de tu envío de Litecoin:");
+            
+            if (!txHash || txHash.trim() === '') {
+                return alert("Necesitas ingresar el ID de la transacción para verificar.");
+            }
+
             document.getElementById('step-pay').style.display = 'none';
             document.getElementById('step-verifying').style.display = 'block';
             
             const verifyText = document.getElementById('verify-text');
-            verifyText.textContent = metodoPagoElegido === 'ltc' 
-                ? "Buscando ID de transacción en la Blockchain de Litecoin..." 
-                : "Sincronizando estado de cuenta con servidores de PayPal...";
+            verifyText.textContent = "Analizando Hash " + txHash.substring(0, 8) + "... en la red";
 
-            // Simulación de búsqueda en API externa
-            setTimeout(() => {
-                document.getElementById('step-verifying').style.display = 'none';
-                document.getElementById('step-success').style.display = 'block';
+            try {
+                let totalEsperado = 0;
+                carrito.forEach(item => totalEsperado += item.precio);
 
-                // Bajar el stock real en el backend simulado
-                carrito.forEach(item => {
-                    const pIdx = catalogo.findIndex(p => p.id === item.id);
-                    if (catalogo[pIdx].stock > 0) catalogo[pIdx].stock -= 1;
+                // Llamada a tu Backend /api/verificar-ltc.js
+                const respuesta = await fetch('/api/verificar-ltc', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ txHash: txHash.trim(), montoEsperadoUSD: totalEsperado })
                 });
-                guardarCatalogo();
-                renderizarCatalogo();
-            }, 4000); 
+
+                const resultado = await respuesta.json();
+
+                if (respuesta.ok && resultado.success) {
+                    // PAGO DETECTADO Y VERIFICADO EN LA BLOCKCHAIN
+                    document.getElementById('step-verifying').style.display = 'none';
+                    document.getElementById('step-success').style.display = 'block';
+
+                    // Descuento de Stock Real
+                    carrito.forEach(item => {
+                        const pIdx = catalogo.findIndex(p => p.id === item.id);
+                        if (catalogo[pIdx].stock > 0) catalogo[pIdx].stock -= 1;
+                    });
+                    guardarCatalogo();
+                    renderizarCatalogo();
+                } else {
+                    // PAGO FALSO O INCOMPLETO
+                    alert("Error en verificación: " + resultado.error);
+                    document.getElementById('step-verifying').style.display = 'none';
+                    document.getElementById('step-pay').style.display = 'block';
+                }
+
+            } catch (error) {
+                alert("Error de conexión con el servidor de verificación.");
+                document.getElementById('step-verifying').style.display = 'none';
+                document.getElementById('step-pay').style.display = 'block';
+            }
         }
 
         function reclamarCuentaWA() {
@@ -465,13 +496,11 @@
                 total += p; 
             });
             
-            message += `\n*TOTAL PAGADO: $${total.toFixed(2)}*\n\n_Adjunto mi comprobante para recibir mi cuenta._`;
+            message += `\n*TOTAL PAGADO: $${total.toFixed(2)}*\n\n_Adjunto mi comprobante o ID de transacción para recibir mi cuenta._`;
             
-            // Vaciar carrito
             carrito = []; guardarCarrito(); actualizarUI_Carrito();
             cerrarModal();
 
-            // Abrir WhatsApp con el Handoff
             window.open(`https://wa.me/593986514739?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
         }
 
@@ -479,7 +508,7 @@
 
         window.onload = () => { inicializarTienda(); initGalaxy(); };
 
-        // === FONDO 3D ===
+        // === FONDO 3D GALAXIA ===
         function initGalaxy() {
             if (typeof THREE === 'undefined') return;
             const canvas = document.querySelector('#bg-canvas');
